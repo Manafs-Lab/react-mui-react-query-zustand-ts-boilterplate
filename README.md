@@ -10,7 +10,7 @@ A modern React boilerplate with **TypeScript, Vite, Material UI (MUI), React Que
 - **🔄 React Query** - Efficient server state management
 - **🌍 Zustand** - Simple & scalable global state management
 - **🛣️ Wouter** - Lightweight routing for React apps
-- **🖌️ vanilla-extract - Type-safe, scalable CSS-in-TypeScript
+- **🖌️ vanilla-extract** - Type-safe, scalable CSS-in-TypeScript
 - **📝 Biome** - All-in-one linter, formatter, and code optimizer
 - **✅ Husky & Commitlint** - Git hooks for linting before commits
 
