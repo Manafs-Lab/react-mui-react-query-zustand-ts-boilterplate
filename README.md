@@ -1,6 +1,6 @@
 # React TypeScript Vite Boilerplate
 
-A modern React boilerplate with **TypeScript, Vite, Material UI (MUI), React Query, Zustand, Biome, Wouter, and Husky**. This setup provides a fast development experience with best practices for state management, API fetching, routing, code linting and formatting.
+A modern React boilerplate with **TypeScript, Vite, Material UI (MUI), React Query, Zustand, Biome, Wouter, Husky and and vanilla-extract**. This setup provides a fast development experience with best practices for state management, API fetching, routing, code linting and formatting.
 
 ## 🚀 Features
 
@@ -10,6 +10,7 @@ A modern React boilerplate with **TypeScript, Vite, Material UI (MUI), React Que
 - **🔄 React Query** - Efficient server state management
 - **🌍 Zustand** - Simple & scalable global state management
 - **🛣️ Wouter** - Lightweight routing for React apps
+- **🖌️ vanilla-extract - Type-safe, scalable CSS-in-TypeScript
 - **📝 Biome** - All-in-one linter, formatter, and code optimizer
 - **✅ Husky & Commitlint** - Git hooks for linting before commits
 
@@ -111,6 +112,30 @@ export const useUsers = () => {
 };
 ```
 
+## 🎨 Styling (vanilla-extract)
+vanilla-extract is used for writing scalable, type-safe styles.
+
+```javascript
+//button.css.ts
+import { style } from '@vanilla-extract/css';
+
+export const button = style({
+  backgroundColor: 'blue',
+  color: 'white',
+  padding: '10px',
+  borderRadius: '5px',
+});
+```
+Usage:
+```javascript
+//butto.ts
+import { button } from './styles.css';
+
+export default function MyComponent() {
+  return <button className={button}>Click Me</button>;
+}
+```
+
 ## 🛠️ Husky and Commitlint
 
 This project uses **Husky** and **Commitlint** to ensure consistent commit messages and code quality:
@@ -137,6 +162,21 @@ git commit --no-verify
 - **Constants**: `SNAKE_CASE` (e.g., `API_BASE_URL`)
 - **Variables & Functions**: `camelCase` (e.g., `fetchUserData`)
 - **Classes & Components**: `PascalCase` (e.g., `UserProfile`)
+
+Example:
+```javascript
+//example-file.ts   --->  filename (kebab-case)
+
+const API_URL = 'https://api.example.com'; // Constant
+
+function fetchData() {  // Function (camelCase)
+  return fetch(API_URL);
+}
+
+export default function MyComponent() {  // Component (PascalCase)
+  return <div>Hello</div>;
+}
+```
 
 ## Available Scripts
 - `npm run format`  
