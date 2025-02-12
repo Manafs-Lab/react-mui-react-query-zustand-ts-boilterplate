@@ -1,6 +1,6 @@
 # React TypeScript Vite Boilerplate
 
-A modern React boilerplate with **TypeScript, Vite, Material UI (MUI), React Query, Zustand, Biome, Wouter, Husky and and vanilla-extract**. This setup provides a fast development experience with best practices for state management, API fetching, routing, code linting and formatting.
+A modern React boilerplate with **TypeScript, Vite, Material UI (MUI), React Query, Zustand, Biome, Wouter, Husky, React Hook Form, Zod and vanilla-extract**. This setup provides a fast development experience with best practices for state management, API fetching, routing, code linting and formatting.
 
 ## 🚀 Features
 
@@ -13,6 +13,8 @@ A modern React boilerplate with **TypeScript, Vite, Material UI (MUI), React Que
 - **🖌️ vanilla-extract** - Type-safe, scalable CSS-in-TypeScript
 - **📝 Biome** - All-in-one linter, formatter, and code optimizer
 - **✅ Husky & Commitlint** - Git hooks for linting before commits
+- **🏗️ React Hook Form** - Form handling and validation
+- **🔑 Zod** - Schema declaration and validation
 
 ---
 
@@ -112,6 +114,42 @@ export const useUsers = () => {
 };
 ```
 
+## 📝 Form Handling (React Hook Form & Zod)
+```javascript
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const DemoSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+});
+
+export type TDemoData = z.infer<typeof DemoSchema>;
+
+const DemoComponent = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<TDemoData>({
+    resolver: zodResolver(DemoSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+    },
+  });
+
+  const onSubmit = handleSubmit((data: TDemoData) => {
+    console.log(data);
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('title')} />
+      <input {...register('description')} />
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
+
 ## 🎨 Styling (vanilla-extract)
 vanilla-extract is used for writing scalable, type-safe styles.
 
@@ -128,7 +166,7 @@ export const button = style({
 ```
 Usage:
 ```javascript
-//butto.ts
+//button.ts
 import { button } from './styles.css';
 
 export default function MyComponent() {
