@@ -12,16 +12,16 @@ import { useForm } from "react-hook-form";
 import { useLocation } from "wouter";
 import { z } from "zod";
 
+const LoginSchema = z.object({
+	email: z.string().email("Invalid email format"),
+	password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export type TLoginData = z.infer<typeof LoginSchema>;
+
 const LoginForm = () => {
 	const [, setLocation] = useLocation();
 	const { login } = useAuthStore();
-
-	const LoginSchema = z.object({
-		email: z.string().email("Invalid email format"),
-		password: z.string().min(8, "Password must be at least 8 characters"),
-	});
-
-	type TLoginData = z.infer<typeof LoginSchema>;
 
 	const {
 		register,
