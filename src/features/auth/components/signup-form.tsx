@@ -1,3 +1,5 @@
+import { LOGIN_ROUTE } from "@/config/constant";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	Box,
 	Button,
@@ -7,21 +9,43 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useLocation } from "wouter";
+import { z } from "zod";
+import useAuthStore from "../auth.store";
 
-const RegisterForm = () => {
+const SignupSchema = z.object({
+	firstName: z.string().min(1, "First name is required"),
+	lastName: z.string().min(1, "Last name is required"),
+	email: z.string().email("Invalid email format"),
+	password: z.string().min(8, "Password must be at least 8 characters"),
+	confirmPassword: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export type TSignupData = z.infer<typeof SignupSchema>;
+
+const SignupForm = () => {
 	const [, setLocation] = useLocation();
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
+	const { signup } = useAuthStore();
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		console.log("Registration submitted");
-		setLocation("/login");
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<TSignupData>({
+		resolver: zodResolver(SignupSchema),
+		defaultValues: {
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+		},
+	});
+
+	const onSubmit = (data: TSignupData) => {
+		signup(data);
+		setLocation("/");
 	};
 
 	return (
@@ -40,7 +64,7 @@ const RegisterForm = () => {
 					</Typography>
 					<Box
 						component="form"
-						onSubmit={handleSubmit}
+						onSubmit={handleSubmit(onSubmit)}
 						noValidate
 						sx={{ mt: 3 }}
 					>
@@ -48,14 +72,14 @@ const RegisterForm = () => {
 							<Grid size={{ xs: 12, sm: 6 }}>
 								<TextField
 									autoComplete="given-name"
-									name="firstName"
 									required
 									fullWidth
 									id="firstName"
 									label="First Name"
 									autoFocus
-									value={firstName}
-									onChange={(e) => setFirstName(e.target.value)}
+									error={!!errors.firstName}
+									helperText={errors.firstName?.message}
+									{...register("firstName")}
 								/>
 							</Grid>
 							<Grid size={{ xs: 12, sm: 6 }}>
@@ -64,10 +88,10 @@ const RegisterForm = () => {
 									fullWidth
 									id="lastName"
 									label="Last Name"
-									name="lastName"
 									autoComplete="family-name"
-									value={lastName}
-									onChange={(e) => setLastName(e.target.value)}
+									error={!!errors.lastName}
+									helperText={errors.lastName?.message}
+									{...register("lastName")}
 								/>
 							</Grid>
 							<Grid size={{ xs: 12 }}>
@@ -76,35 +100,35 @@ const RegisterForm = () => {
 									fullWidth
 									id="email"
 									label="Email Address"
-									name="email"
 									autoComplete="email"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
+									error={!!errors.email}
+									helperText={errors.email?.message}
+									{...register("email")}
 								/>
 							</Grid>
 							<Grid size={{ xs: 12 }}>
 								<TextField
 									required
 									fullWidth
-									name="password"
 									label="Password"
 									type="password"
 									id="password"
 									autoComplete="new-password"
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
+									error={!!errors.password}
+									helperText={errors.password?.message}
+									{...register("password")}
 								/>
 							</Grid>
 							<Grid size={{ xs: 12 }}>
 								<TextField
 									required
 									fullWidth
-									name="confirmPassword"
 									label="Confirm Password"
 									type="password"
 									id="confirmPassword"
-									value={confirmPassword}
-									onChange={(e) => setConfirmPassword(e.target.value)}
+									error={!!errors.confirmPassword}
+									helperText={errors.confirmPassword?.message}
+									{...register("confirmPassword")}
 								/>
 							</Grid>
 						</Grid>
@@ -119,7 +143,7 @@ const RegisterForm = () => {
 						<Grid container justifyContent="flex-end">
 							<Grid>
 								<Button
-									onClick={() => setLocation("/login")}
+									onClick={() => setLocation(LOGIN_ROUTE)}
 									variant="text"
 									size="small"
 								>
@@ -134,4 +158,4 @@ const RegisterForm = () => {
 	);
 };
 
-export default RegisterForm;
+export default SignupForm;

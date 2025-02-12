@@ -1,6 +1,7 @@
 // import apiClient from "@/lib/api-client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { TSignupData } from "./components/signup-form";
 
 interface User {
 	id: string;
@@ -13,6 +14,7 @@ interface AuthState {
 	user: User | null;
 	isAuthenticated: boolean;
 	login: (email: string, password: string) => Promise<void>;
+	signup: (data: TSignupData) => Promise<void>;
 	logout: () => void;
 	setUser: (user: User) => void;
 }
@@ -32,13 +34,16 @@ const useAuthStore = create<AuthState>()(
 					// });
 					// const userData = response.data;
 					// set({ user: userData as User, isAuthenticated: true });
+					console.log("Login successful", email, password);
 					set({ isAuthenticated: true });
 				} catch (error) {
 					console.error("Login failed:", error);
 					throw error;
 				}
 			},
-
+			signup: async (data) => {
+				console.log("Signup successful", data);
+			},
 			logout: () => {
 				set({ user: null, isAuthenticated: false });
 				localStorage.removeItem("auth-storage");
