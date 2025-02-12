@@ -1,11 +1,11 @@
-import ContentLayout from "@/components/layouts/content-layout";
+import AuthenticatedLayout from "@/components/layouts/authenticated-layout";
 import CartList from "@/features/cart/components/cart-list";
 
 const Cart = () => {
 	return (
-		<ContentLayout>
+		<AuthenticatedLayout>
 			<CartList />
-		</ContentLayout>
+		</AuthenticatedLayout>
 	);
 };
 

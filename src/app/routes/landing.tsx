@@ -1,11 +1,11 @@
-import ContentLayout from "@/components/layouts/content-layout";
-import ProductList from "../../features/products/components/product-list";
+import PublicLayout from "@/components/layouts/public-layout";
+import ProductList from "@/features/products/components/product-list";
 
 const Landing = () => {
 	return (
-		<ContentLayout>
+		<PublicLayout>
 			<ProductList />
-		</ContentLayout>
+		</PublicLayout>
 	);
 };
 

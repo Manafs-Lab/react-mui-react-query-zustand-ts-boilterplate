@@ -1,4 +1,4 @@
-import ContentLayout from "@/components/layouts/content-layout";
+import ContentLayout from "@/components/layouts/public-layout";
 import Product from "@/features/products/components/product";
 
 const ProductDetails = () => {
