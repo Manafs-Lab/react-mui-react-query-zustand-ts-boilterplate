@@ -11,7 +11,7 @@
 		"quickfix.biome": "explicit",
 		"source.organizeImports.biome": "explicit"
 	},
-	"cSpell.words": ["partialize", "VITE", "Wouter"],
+	"cSpell.words": ["notistack", "partialize", "VITE", "Wouter"],
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	}

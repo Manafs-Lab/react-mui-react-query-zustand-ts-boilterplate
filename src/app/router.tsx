@@ -5,6 +5,7 @@ import Cart from "./routes/cart";
 import Dashboard from "./routes/dashboard";
 import Landing from "./routes/landing";
 import LoginPage from "./routes/login";
+import NotFoundRoute from "./routes/not-found";
 import ProductDetails from "./routes/product-details";
 import Signup from "./routes/signup";
 
@@ -18,6 +19,7 @@ const AppRouter = () => {
 				<Route path={LOGIN_ROUTE} component={LoginPage} />
 				<Route path="/auth/signup" component={Signup} />
 				<PrivateRoute path="/dashboard" component={Dashboard} />
+				<Route path="*" component={NotFoundRoute} />
 			</Switch>
 		</WouterRouter>
 	);
