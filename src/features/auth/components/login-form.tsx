@@ -35,8 +35,8 @@ const LoginForm = () => {
 		},
 	});
 
-	const onSubmit = (data: TLoginData) => {
-		login(data.email, data.password);
+	const onSubmit = async (data: TLoginData) => {
+		await login(data.email, data.password);
 		setLocation("/");
 	};
 

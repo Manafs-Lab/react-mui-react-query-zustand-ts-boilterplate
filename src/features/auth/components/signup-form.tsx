@@ -43,8 +43,8 @@ const SignupForm = () => {
 		},
 	});
 
-	const onSubmit = (data: TSignupData) => {
-		signup(data);
+	const onSubmit = async (data: TSignupData) => {
+		await signup(data);
 		setLocation("/");
 	};
 
